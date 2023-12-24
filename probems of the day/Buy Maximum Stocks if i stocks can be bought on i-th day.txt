@@ -1,0 +1,74 @@
+//{ Driver Code Starts
+/* Driver program to test above function */
+
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution {
+public:
+    int buyMaximumProducts(int n, int k, int price[]){
+        
+        vector<pair<int,int>> price1;
+        for(int i=0;i<n;i++)
+        {
+            price1.push_back({price[i],i+1});
+        }
+        sort(price1.begin(),price1.end());
+        
+        int i=0;
+        int count=0;
+        while(k>0)
+        {
+            
+            int stock_val=price1[i].first;
+            int amount=price1[i].second;
+            if(stock_val>0 && (k/stock_val) > 0)
+            {
+             
+                if(amount > (k/stock_val))
+                {
+                    int las=(k/stock_val);
+                    k=k-las*stock_val;
+                    count+=las;
+                    
+                }
+                else{
+                   k=k-stock_val*amount;
+                   count+=amount;
+                }
+            }else{
+                break;
+            }
+          
+            i++;
+            
+        }
+        return count;
+        
+        
+    }
+};
+
+
+//{ Driver Code Starts.
+int main()
+{
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    int n, k;
+	    cin >> n >> k;
+	    int price[n];
+	    for(int i = 0 ; i < n; i++){
+	        cin >> price[i];
+	    }
+	    Solution ob;
+	    int ans = ob.buyMaximumProducts(n, k, price);
+	    cout << ans<<endl;
+	}
+	return 0;
+}
+
+// } Driver Code Ends
